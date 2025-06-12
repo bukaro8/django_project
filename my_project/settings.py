@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+import os
 
 from pathlib import Path
 
@@ -26,7 +27,10 @@ SECRET_KEY = 'django-insecure-eyt9v32=j_ai9$chk9v-c-v_mbz-924!v2-g@3756pt0s@e!gv
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Application definition
 
@@ -39,11 +43,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'hello_world',
     'about',
-    'intro'
+    'intro',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
